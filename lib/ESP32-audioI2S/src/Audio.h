@@ -30,7 +30,17 @@
  *  anp59: minor changes in Audio.h in the context of SDFATFS_USED          \
  *  SdFat options can best be set via the compiler option -D... can be set. \
  *  For example for USE_UTF8_LONG_NAMES or SDFAT_FILE_TYPE                  \
- */                                                                         \
+ */ 
+
+/*                                                                                                           \
+*  The special operator __has_include is used in SdFat.h to check whether the header FS.h has been included. \
+*  If so, the data type File is not defined over typedef by the SdFat library                                \
+*  (depending on SDFAT_FILE_TYPE on File32, ExFile or FsFile).                                               \
+*  For the ESP32-audioI2S library, however, the data type File is required.                                  \
+*  Unfortunately, it is not enough if FS.h is not included via preprocessor statements,                      \
+*  __has_include(FS.h) is also true in these cases.                                                          \
+*  The check in SdFat.h is therefore switched off by #undef __has_include to ensure that File is defined.    \
+*/                                                                                                           \
 #undef __has_include
 #include <SdFat.h> // https://github.com/greiman/SdFat
 #define __has_include
