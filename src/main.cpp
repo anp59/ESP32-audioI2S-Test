@@ -47,6 +47,9 @@ void setup()
     // 64: EXFAT, 32: FAT32, 16: FAT16, or zero for error
     Serial.printf("\nFAT-Type is %d\n", SD.fatType());
     
+    // list directory structure 
+    SD.ls("/", LS_SIZE | LS_R);
+
     /* 
     The data type "File32" can also be used. The type of "File" depends on SDFAT_FILE_TYPE of the SdFat library.
     ESP32-audioI2S currently only works with SDFAT_FILE_TYPE = 1, i.e. FAT16 and FAT32. 
