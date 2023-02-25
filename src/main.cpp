@@ -141,13 +141,13 @@ void listDir(fs::FS &fs, const char * dirname, int level) {
     if (level == 0)
         numberOfFiles = 0;
     root = fs.open(dirname);
-    //root.open(dirname);       // possible for SdFat  
+    //root.open(dirname);       // possible instruction with SdFat  
     if ( !root ) {
         Serial.println("Failed to open directory");
         return;
     }
     if ( !root.isDirectory() ) {
-    //if ( !root.isDir() ) {    // possible for SdFat
+    //if ( !root.isDir() ) {    // possible instruction with SdFat
         Serial.println("Not a directory");
         return;
     }
@@ -156,13 +156,9 @@ void listDir(fs::FS &fs, const char * dirname, int level) {
     printTabs(level);
     Serial.printf("DIR: %s\n", dirname);
     while (true) {
-       #ifdef SDFATFS_USED
         File file;
         file = root.openNextFile();
-        //file.openNext(&root, O_RDONLY);       // possible for SdFat
-       #else   
-        File file = root.openNextFile();
-       #endif
+        //file.openNext(&root, O_RDONLY);       // possible instruction with SdFat
         while ( file ) {
             if ( file.isDirectory() && mode == 1 ) {
             //if ( file.isDir() && mode == 1 ) {    // possible for SdFat
