@@ -8,8 +8,12 @@
  *      Author: Wolle (schreibfaul1)
  */
 
-
-#define SDFATFS_USED  // activate for SdFat
+/*                                                                          \
+ *  anp59: minor changes in Audio.h in the context of SDFATFS_USED          \
+ *  SdFat options can best be set via the compiler option -D... can be set. \
+ *  For example SDFATFS_USED, USE_UTF8_LONG_NAMES or SDFAT_FILE_TYPE        \
+ */ 
+//#define SDFATFS_USED  // define for SdFat
 
 
 #pragma once
@@ -26,12 +30,6 @@
 #include <driver/i2s.h>
 
 #ifdef SDFATFS_USED
-/*                                                                          \
- *  anp59: minor changes in Audio.h in the context of SDFATFS_USED          \
- *  SdFat options can best be set via the compiler option -D... can be set. \
- *  For example for USE_UTF8_LONG_NAMES or SDFAT_FILE_TYPE                  \
- */ 
-
 /*                                                                                                           \
 *  The special operator __has_include is used in SdFat.h to check whether the header FS.h has been included. \
 *  If so, the data type File is not defined over typedef by the SdFat library                                \
