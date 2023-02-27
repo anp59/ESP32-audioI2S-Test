@@ -154,7 +154,11 @@ void listDir(fs::FS &fs, const char * dirname, int level) {
     printTabs(level);
     Serial.println("--------------------------------------------------------------------");
     printTabs(level);
-    Serial.printf("DIR: %s\n", dirname);
+#if SDFATFS_USED
+    Serial.printf("DIR (L%d - I%d): %s\n", level, root.dirIndex(), dirname);
+#else
+Serial.printf("DIR: (L%d): %s\n", root.dirIndex(), dirname);
+#endif
     while (true) {
         File file;
         file = root.openNextFile();
@@ -177,7 +181,11 @@ void listDir(fs::FS &fs, const char * dirname, int level) {
             if ( !file.isDirectory() && mode == 2 ) {
             //if ( !file.isDir() && mode == 2 ) {
                 printTabs(level);
-                Serial.printf(" FILE: %s (L%d)\n", name(file), level);
+#if SDFATFS_USED
+                Serial.printf(" FILE (I%d): %s\n", file.dirIndex(), name(file));
+#else
+                Serial.printf(" FILE: %s\n", name(file));
+#endif
                 numberOfFiles++;
             }
             file.close();
